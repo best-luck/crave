@@ -8,6 +8,7 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 
 interface CART {
   cart: TREEZ_CART_TYPE;
+  store: string;
   addItemToCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => void;
   removeItemFromCart: (product: TREEZ_PRODUCT_TYPE) => void;
   updateItemInCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => void;
@@ -18,6 +19,7 @@ const CartContext = createContext<CART>({
     products: [],
     total: 0
   },
+  store: "cravemonroe",
   addItemToCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => {},
   removeItemFromCart: (product: TREEZ_PRODUCT_TYPE) => {},
   updateItemInCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => {},
@@ -65,6 +67,7 @@ export function CartContextProvider({ children, store } : { children: ReactNode,
     <CartContext.Provider
       value={{
         cart,
+        store,
         addItemToCart,
         removeItemFromCart,
         updateItemInCart

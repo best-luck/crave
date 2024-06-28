@@ -9,7 +9,6 @@ import { Manrope } from 'next/font/google'
 import { getSessionData } from '@src/lib/session/getSession';
 import { AuthContextProvider } from '@src/contexts/AuthContext';
 import { CartContextProvider } from '@src/contexts/CartContext';
-import { headers } from 'next/headers';
 
 export const metadata = {
   title: 'Parc Cannabis',
@@ -30,8 +29,6 @@ export default async function RootLayout({
 
   const googleTags = await getSetting("googleTags");
   const session = await getSessionData();
-  const headersList = headers();
-  console.log(headersList);
 
   return (
     <html lang="en" className="min-h-full">
@@ -47,7 +44,7 @@ export default async function RootLayout({
         </Script>
       </head>
       <body className={`min-h-full bg-dark ${manrope.className}`}>
-        <CartContextProvider store={"cravemonroe"}>
+        <CartContextProvider store={session.store||"cravemonroe"}>
           <AuthContextProvider user={session.user}>
             <PublicLayout>
               {children}

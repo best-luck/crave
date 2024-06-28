@@ -37,9 +37,9 @@ export default function ProductSearchResultModal({ query, show, hideModal }: Pro
         ref={modalInnerRef}>
         <h2 className="text-3xl mb-5">Search Result For: {query}</h2>
         <div className="flex gap-5 justify-between">
-          {
+          {/* {
             products.map((product, idx) => <Product display="Listing" product={product} key={`search-p-${idx}`} />)
-          }
+          } */}
         </div>
       </div>
     </div>

@@ -8,11 +8,17 @@ import { faBars, faCaretDown, faCartShopping, faChevronDown, faStore, faUserCirc
 import Sidebar from "../shared/common/UI/menu/sidebar";
 import { useState } from "react";
 import { useCartContext } from "@src/contexts/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
 
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const { cart } = useCartContext();
+  const { cart, store } = useCartContext();
+  const router = useRouter();
+
+  const viewCart = () => {
+    router.push(`/${store}/cart`);
+  }
 
   return <>
     <header className="bg-dark sticky top-0 w-full z-30 text-white border-b border-primary">
@@ -56,7 +62,7 @@ export default function Header() {
           <div>
             <FontAwesomeIcon icon={faUserCircle} fontSize={24} />
           </div>
-          <div className="flex gap-[11px] items-center">
+          <div className="flex gap-[11px] items-center cursor-pointer" onClick={viewCart}>
             <FontAwesomeIcon icon={faCartShopping} fontSize={24} />
             <div>
               <p className="font-medium text-[14px] text-subtext mb-[2px]">{cart.products.length} Items</p>

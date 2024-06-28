@@ -66,7 +66,7 @@ export default function ClientPage() {
         </div>
         <Button onClick={() => {}} type="submit" className="w-full mb-[24px]">Sign in</Button>
         <p className="text-center mb-0 text-[14px]">
-          <span className="me-[4px] text-subtext">Don't have an account?</span><Link href="signup">Sign up</Link>
+          <span className="me-[4px] text-subtext">Don&apos;t have an account?</span><Link href="signup">Sign up</Link>
         </p>
       </form>
     </AuthLayout>

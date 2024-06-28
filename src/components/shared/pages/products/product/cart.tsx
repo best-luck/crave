@@ -51,7 +51,7 @@ export default function ProductCart({ product, selectProduct }: ProductProps) {
         </p>
         <div className='mt-[12px] mb-[26px]'>
           {
-            product.subTypes.map(subType => <span className="bg-primary inline-flex justify-center items-center rounded-[4px] px-[12px] w-[116px] h-[24px] text-[12px]">{subType}</span>)
+            product.subTypes.map(subType => <span key={`subtype-${product.productList[0].productId}-${subType}`} className="bg-primary inline-flex justify-center items-center rounded-[4px] px-[12px] w-[116px] h-[24px] text-[12px]">{subType}</span>)
           }
         </div>
       </div>

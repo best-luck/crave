@@ -5,7 +5,7 @@ import Button from "@src/components/shared/common/UI/button";
 import { sendVerifyCode, verifyAuthCode } from "@src/lib/treez/auth";
 import { ChangeEvent, FormEvent, KeyboardEvent, forwardRef, useEffect, useRef, useState } from "react";
 
-export const DigitInput = forwardRef((props: { idx: number, onChange: (e: KeyboardEvent<HTMLInputElement>, idx: number)=>void }, ref: React.Ref<HTMLInputElement>) => {
+const _DigitInput = (props: { idx: number, onChange: (e: KeyboardEvent<HTMLInputElement>, idx: number)=>void }, ref: React.Ref<HTMLInputElement>) => {
 
   const { idx, onChange } = props;
 
@@ -19,7 +19,9 @@ export const DigitInput = forwardRef((props: { idx: number, onChange: (e: Keyboa
       ref={ref}
     />
   );
-});
+};
+
+export const DigitInput = forwardRef(_DigitInput);
 
 export default function ClientPage({ email }: { email: string }) {
 
@@ -97,7 +99,7 @@ export default function ClientPage({ email }: { email: string }) {
         <Button type="submit" onClick={() => {}} className="w-full mb-[24px]">Verify Email</Button>
       </form>
       <div className="text-[14px] flex gap-[4px] justify-center">
-        <span className="text-subtext">Didn't get an email?</span> <button className="bg-transparent outline-none" onClick={resendVerifyCode} >Resend</button>
+        <span className="text-subtext">Didn&apos;t get an email?</span> <button className="bg-transparent outline-none" onClick={resendVerifyCode} >Resend</button>
       </div>
     </AuthLayout>
   );
