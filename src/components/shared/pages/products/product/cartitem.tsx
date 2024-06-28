@@ -6,12 +6,19 @@ import "./style.scss";
 import { PRODUCT_CART_TYPE } from "@src/lib/types/treez/product";
 import Icon from "@src/components/shared/common/UI/icon/icon";
 import Counter from "@src/components/shared/common/UI/input/counter";
+import { useCartContext } from "@src/contexts/CartContext";
 
 interface ProductProps {
-  product?: PRODUCT_CART_TYPE
+  product: PRODUCT_CART_TYPE
 }
 
 export default function CartItem({ product }: ProductProps) {
+
+  const { removeItemFromCart } = useCartContext();
+
+  const removeItem = () => {
+    removeItemFromCart(product.product);
+  }
 
   return (
     <div className="pb-[24px] border-b border-separatordark mb-[24px] ">
@@ -30,7 +37,7 @@ export default function CartItem({ product }: ProductProps) {
               <p className="text-subtext text-[14px]">Strength: { product?.product.productList[0].weight }g</p>
             </div>
             <div>
-              <Icon icon={faTrash} />
+              <Icon icon={faTrash} className="cursor-pointer" onClick={removeItem} />
             </div>
           </div>
           <div className="flex justify-between items-center mt-auto">
