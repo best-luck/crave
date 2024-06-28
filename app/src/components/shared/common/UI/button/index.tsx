@@ -1,0 +1,17 @@
+import { ReactNode } from "react";
+
+interface ButtonProps {
+  onClick: () => void;
+  className?: string;
+  children?: ReactNode;
+  text?: string;
+  type?: "button" | "submit" | "reset" | undefined | null;
+}
+
+export default function Button(props: ButtonProps) {
+  return (
+    <button onClick={props.onClick} className={`bg-primary rounded-[4px] h-[50px] px-[22px] py-[14px] ${props.className}`} type={props.type||'button'}>
+      {props.text?props.text:props.children}
+    </button>
+  )
+};

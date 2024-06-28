@@ -1,0 +1,17 @@
+.swiper-button-disabled {
+  display: none;
+}
+
+.navigation-container {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255) 100%);
+}
+
+.product-slider {
+  .swiper-wrapper {
+    align-items: stretch;
+
+    .swiper-slide {
+      height: initial !important;
+    }
+  }
+}
