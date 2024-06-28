@@ -13,11 +13,13 @@ import { toast } from "react-toastify";
 import Icon from "@src/components/shared/common/UI/icon/icon";
 import Counter from "@src/components/shared/common/UI/input/counter";
 import CartItem from "../product/cartitem";
+import { useCartContext } from "@src/contexts/CartContext";
 
 export default function CartTable() {
 
   const router = useRouter();
-  const items = [];
+  const { cart } = useCartContext();
+  console.log(cart);
   const removeItem = (itemId: string) => {
     removeItemFromCart(itemId)
       .then(() => {
@@ -30,13 +32,12 @@ export default function CartTable() {
   }
   
   return (
-    !items.length ?
+    cart.products.length ?
     <div>
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
+      {
+        cart.products.map((product, idx) => <CartItem key={`cart-product-${idx}`} product={product} />)
+      }
     </div>:
-    <h1 className="font-bold text-xl text-gray-400">No Items Yet</h1>
+    <h2 className="font-bold text-xl text-gray-400">No Items Yet</h2>
   )
 }
