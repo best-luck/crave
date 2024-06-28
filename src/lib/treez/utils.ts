@@ -72,7 +72,7 @@ export const treezRequest = async (store: string) => {
   }
   axiosInstance = treezCraveannaborAxios;
   const session = await getSessionData();
-  if (session.user.tokens) {
+  if (session.user && session.user.tokens) {
     axiosInstance.defaults.headers.common.Authorization = "Bearer " + session.user.tokens.token;
   }
   return axiosInstance;
