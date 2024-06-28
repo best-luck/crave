@@ -3,7 +3,7 @@
 import CheckoutSummary from "@src/components/pages/checkout/summary";
 import ContactInfoForm from "@src/components/pages/checkout/contact";
 import Payment from "@src/components/pages/checkout/payment";
-import Shipping from "@src/components/pages/checkout/contact";
+import Shipping from "@src/components/pages/checkout/shipping";
 
 export default function ClientPage() {
   return (

@@ -1,10 +1,16 @@
 import Button from "@src/components/shared/common/UI/button";
 import Input from "@src/components/shared/common/UI/input/input";
 import { useCartContext } from "@src/contexts/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function CartSummary() {
 
   const { cart } = useCartContext();
+  const router = useRouter();
+
+  const checkout = () => {
+    router.push("checkout");
+  }
 
   return (
     <div className="w-[413px] rounded-[4px] border border-[#FFFFFF33] p-[24px]">
@@ -37,7 +43,7 @@ export default function CartSummary() {
         <span>Total</span>
         <span>$110.00</span>
       </div>
-      <Button onClick={() => {}} className="w-full">Checkout</Button>
+      <Button onClick={checkout} className="w-full">Checkout</Button>
     </div>
   );
 }
