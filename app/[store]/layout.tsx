@@ -1,3 +1,5 @@
+"use server";
+
 import { StoreContextProvider } from "@src/contexts/StoreContext";
 import { ReactNode } from "react";
 import Banner from "@src/components/layout/banner";
