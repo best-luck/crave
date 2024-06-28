@@ -32,7 +32,7 @@ export default function CartSummary() {
         </div>
         <div className="flex justify-between">
           <span>Tax</span>
-          <span>$10.00</span>
+          <span>${cart.tax.toFixed(2)}</span>
         </div>
         <div className="flex justify-between">
           <span>Shipping</span>
@@ -41,7 +41,7 @@ export default function CartSummary() {
       </div>
       <div className="my-[24px] flex justify-between font-semibold text-[20px]">
         <span>Total</span>
-        <span>$110.00</span>
+        <span>${(cart.tax + cart.total).toFixed(2)}</span>
       </div>
       <Button onClick={checkout} className="w-full">Checkout</Button>
     </div>

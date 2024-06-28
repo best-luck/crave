@@ -17,7 +17,8 @@ interface CART {
 const CartContext = createContext<CART>({
   cart: {
     products: [],
-    total: 0
+    total: 0,
+    tax: 0
   },
   store: "cravemonroe",
   addItemToCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => {},
@@ -30,36 +31,46 @@ export function CartContextProvider({ children, store } : { children: ReactNode,
     `${store}-cart`,
     {
       products: [],
-      total: 0
+      total: 0,
+      tax: 0
     }
   );
 
-  const calculate = (products: PRODUCT_CART_TYPE[]) : number=> {
+  const calculatePrice = (products: PRODUCT_CART_TYPE[]) : number=> {
     return products.reduce((total, product:PRODUCT_CART_TYPE) => total+parseFloat(product.product.productList[0].priceSell)*product.quantity, 0);
+  }
+  const calculateTax = (products: PRODUCT_CART_TYPE[]) : number=> {
+    return products.reduce((total, product:PRODUCT_CART_TYPE) => total+parseFloat(product.product.productList[0].priceSell)*product.quantity*product.product.productList[0].taxRate, 0);
   }
 
   const addItemToCart = (product: TREEZ_PRODUCT_TYPE, quantity: number) => {
     const products = [...cart.products, { product, quantity }];
-    const total = calculate(products);
+    const total = calculatePrice(products);
+    const tax = calculateTax(products);
     setCart({
       total,
       products,
+      tax
     });
   }
   const removeItemFromCart = (product: TREEZ_PRODUCT_TYPE) => {
     const products = cart.products.filter(_product => _product.product.productList[0].productId !== product.productList[0].productId);
-    const total = calculate(products);
+    const total = calculatePrice(products);
+    const tax = calculateTax(products);
     setCart({
       total,
       products,
+      tax
     });
   }
   const updateItemInCart = (product: TREEZ_PRODUCT_TYPE, quantity: number) => {
     const products = cart.products.map(_product => _product.product.productList[0].productId === product.productList[0].productId ? ({..._product, quantity}) : _product);
-    const total = calculate(products);
+    const total = calculatePrice(products);
+    const tax = calculateTax(products);
     setCart({
       total,
       products,
+      tax
     });
   }
 

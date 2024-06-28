@@ -1,12 +1,7 @@
-import Banner from "@src/components/layout/banner";
+import { getSessionData } from "@src/lib/session/getSession"
+import { redirect } from "next/navigation";
 
 export default async function Page() { 
-
-  return (
-    <>
-      <Banner />
-      <div className="container py-5 m-auto">
-      </div>
-    </>
-  )
+  const session = await getSessionData();
+  return redirect(`/${session.store||"cravemonroe"}`);
 }
