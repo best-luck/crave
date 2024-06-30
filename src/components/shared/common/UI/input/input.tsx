@@ -22,7 +22,7 @@ export default function Input({ placeholder, name, className, label, type, requi
           placeholder={placeholder}
           name={name}
           type={currentType}
-          required={required||false}
+          required={required||true}
           onChange={onChangeInput}
         />
         {

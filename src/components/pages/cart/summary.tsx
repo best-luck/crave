@@ -13,7 +13,7 @@ export default function CartSummary() {
   }
 
   return (
-    <div className="w-[413px] rounded-[4px] border border-[#FFFFFF33] p-[24px]">
+    <div className="w-full lg:w-[413px] rounded-[4px] border border-[#FFFFFF33] p-[24px]">
       <p className="pb-[24px] border-b border-[#FFFFFF33] text-[32px] font-bold">Cart Summary</p>
       <form className="mt-[24px]">
         <div className="flex gap-[8px]">

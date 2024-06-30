@@ -14,7 +14,7 @@ export default function ClientPage({ products }: { products: TREEZ_PRODUCT_TYPE[
   return (
     <>
       <Banner />
-      <div className="px-container text-white mt-[80px]">
+      <div className="container text-white mt-[80px]">
         <div>
           <div className="flex justify-between items-center mb-[54px]">
             <h2 className="font-semibold text-[32px]">Our Categories</h2>

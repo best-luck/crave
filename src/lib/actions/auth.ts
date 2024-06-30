@@ -7,7 +7,7 @@ export async function login (prevState: any, data: FormData) {
   const email = data.get('email');
   const password = data.get('password');
 
-  if (email=='parc@admin.com' && password == '%Bm_7&fnnnr') {
+  if (email=='crave@admin.com' && password == '%Bm_7&fnnnr') {
     await setSessionData('loggedIn', true);
 
     redirect('/admin');

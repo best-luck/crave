@@ -71,11 +71,11 @@ export default {
       },
       container: {
         padding: {
-          DEFAULT: '1rem',
-          sm: '1.5rem',
-          md: '2rem',
-          lg: '2.5rem',
-          xl: '3rem',
+          DEFAULT: '16px',
+          sm: '32px',
+          lg: '32px',
+          xl: '32px',
+          '2xl': '32px',
         },
       },
     },

@@ -60,7 +60,7 @@ export default function BannerSwiper({ banners }: SwiperProps) {
             key={`product-slider-${banner.id}`}
           >
             <div className="w-full h-[500px] rounded-[20px] bg-cover bg-no-repeat bg-primary" style={{backgroundImage: `url('${banner.image}')`}}>
-              <div className="w-[800px] flex justify-center items-center flex-col m-auto h-full">
+              <div className="w-full md:w-[800px] flex justify-center items-center flex-col m-auto h-full px-[15px]">
                 <Image
                   src="/images/logo-lg.png"
                   layout="responsive"

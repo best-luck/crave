@@ -25,17 +25,23 @@ export default async function Page(props: Props) {
   const blog: BlogType = await getBlog(slug);
 
   return (
-    <div className="container m-auto py-5">
+    <div className="container m-auto pt-[80px]">
+      <h1 className="font-semibold text-[32px] text-center">{blog.title}</h1>
       <Image
         src={blog.image}
         layout="responsive"
         width={100}
         alt="blog image"
+        className="h-[500px]"
         height={100}
         />
-      <h1 className="text-3xl font-bold uppercase border-b pb-3 border-gray-300 mt-5">{blog.title}</h1>
-      <h2 className="text-end">Written By <span className="font-bold uppercase">{blog.author}</span> on {new Date(blog?.created_at||new Date()).toDateString()}</h2>
-      <div className="mt-5" dangerouslySetInnerHTML={{ __html: blog.content }} />
+      <div className="flex gap-[116px] mt-[80px]">
+        <div className="flex-auto mt-[80px]]" dangerouslySetInnerHTML={{ __html: blog.content }} />
+        <div className="w-[448px] rounded-[4px] border border-separatordark p-[24px]">
+          <p className="">Author: {blog.author}</p>
+          <p>Posted on {new Date(blog.created_at||"").toDateString()}</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ import "@src/styles/swiper/pagination.min.css";
 import "./slider-style.scss";
 import { TREEZ_PRODUCT_TYPE } from '@src/lib/types/treez/product';
 
-export default function ProductsSlier({ products }: { products: TREEZ_PRODUCT_TYPE[] }) {
+export default function ProductsSlier({ products, breakpoints }: { products: TREEZ_PRODUCT_TYPE[], breakpoints?: any }) {
 
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
@@ -28,7 +28,7 @@ export default function ProductsSlier({ products }: { products: TREEZ_PRODUCT_TY
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,
         }}
-        breakpoints={{
+        breakpoints={breakpoints||{
           300: { slidesPerView: 1 },
           500: { slidesPerView: 2 },
           700: { slidesPerView: 2 },
@@ -36,8 +36,8 @@ export default function ProductsSlier({ products }: { products: TREEZ_PRODUCT_TY
           1200: { slidesPerView: 4 },
           1400: { slidesPerView: 5 },
         }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => {}}
+        onSlideChange={() => {}}
         onBeforeInit={(swiper: any) => {
           swiper.params.navigation.prevEl = navigationPrevRef.current;
           swiper.params.navigation.nextEl = navigationNextRef.current;

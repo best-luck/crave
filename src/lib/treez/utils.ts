@@ -1,8 +1,11 @@
+"use server";
+
 import axios from "axios";
 import { getSessionData } from "../session/getSession";
+import { setSessionData } from "../session/setSession";
 
 const treezCraveannaborAxios = axios.create({
-  baseURL: "https://headless.treez.io/v2.0/dispensary/partnersandbox2/ecommerce/",
+  baseURL: "https://headless.treez.io/v2.0/dispensary/craveannarbor/ecommerce/",
   headers: {
     client_id: process.env.craveannarbor_client_id as string,
     client_secret: process.env.craveannarbor_client_secret as string
@@ -10,7 +13,7 @@ const treezCraveannaborAxios = axios.create({
 });
 
 const treezCravemonroeAxios = axios.create({
-  baseURL: "https://headless.treez.io/v2.0/dispensary/partnersandbox2/ecommerce/",
+  baseURL: "https://headless.treez.io/v2.0/dispensary/cravemonroe/ecommerce/",
   headers: {
     client_id: process.env.cravemonroe_client_id as string,
     client_secret: process.env.cravemonroe_client_secret as string
@@ -26,7 +29,10 @@ treezCraveannaborAxios.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const session = await getSessionData();
-      const refreshToken = session.user.tokens.refreshToken;
+      let refreshToken = null;
+      if (session.user.craveannabor) {
+        refreshToken = session.user.craveannabor.tokens.refreshToken;
+      }
       if (refreshToken) {
         try {
           const response = await treezCraveannaborAxios.get(`token/${refreshToken}`);
@@ -47,17 +53,19 @@ treezCravemonroeAxios.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response.status === 401 && !originalRequest._retry && !originalRequest.url.startsWith("/token/")) {
       originalRequest._retry = true;
       const session = await getSessionData();
-      const refreshToken = session.user.tokens.refreshToken;
-      if (refreshToken) {
+      let refreshToken = null;
+      if (session.user.cravemonroe) {
+        refreshToken = session.user.cravemonroe.tokens.refreshToken;
         try {
-          const response = await treezCravemonroeAxios.get(`token/${refreshToken}`);
+          const response = await treezCravemonroeAxios.get(`/token/${refreshToken}`);
           const newAccessToken = response.data.token;
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return treezCravemonroeAxios(originalRequest);
-        } catch (error) {
+        } catch (_error) {
+          await setSessionData("user", null);
         }
       }
     }
@@ -69,8 +77,9 @@ export const treezRequest = async (store: string) => {
   let axiosInstance = null;
   if (store === "cravemonroe") {
     axiosInstance = treezCravemonroeAxios;
+  } else {
+    axiosInstance = treezCraveannaborAxios;
   }
-  axiosInstance = treezCraveannaborAxios;
   const session = await getSessionData();
   if (session.user && session.user.tokens) {
     axiosInstance.defaults.headers.common.Authorization = "Bearer " + session.user.tokens.token;

@@ -7,6 +7,6 @@ import ProductShow from "./show";
 export default function Product({ display, product, selectProduct, isFetching }: { display: ProductDisplayType, product: TREEZ_PRODUCT_TYPE, selectProduct?: () => void, isFetching?: boolean }) {
   return (
     display==="Cart" ?
-      <ProductCart product={product} selectProduct={selectProduct} /> : <></>
+      <ProductCart product={product} selectProduct={selectProduct} isFetching={isFetching} /> : <></>
   );
 }

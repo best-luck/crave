@@ -1,17 +1,18 @@
 "use server";
 
+import { headers } from "next/headers";
 import { getSessionData } from "../session/getSession";
 import { setSessionData } from "../session/setSession";
 import { treezRequest } from "./utils";
 
-export async function signIn({ email, password }: { email: string, password: string }) {
-  const monroeAxios = await treezRequest("cravemonroe");
+export async function signIn({ email, password }: { email: string, password: string }, store: string) {
+
+  const monroeAxios = await treezRequest(store);
   try {
     const data = {
       email,
       password
     };
-    console.log(data);
     const res = await monroeAxios.post("/login", data);
     const { firstName, lastName, tokens } = res.data;
     if (res.status === 200) {
@@ -33,8 +34,8 @@ export async function signIn({ email, password }: { email: string, password: str
   }
 }
 
-export async function signUp({ email, password, phone, fullname } : { email: string, password: string, phone: string, fullname: string }) {
-  const monroeAxios = await treezRequest("cravemonroe");
+export async function signUp({ email, password, phone, fullname } : { email: string, password: string, phone: string, fullname: string }, store: string) {
+  const monroeAxios = await treezRequest(store);
   try {
     const data = {
       email,
@@ -45,13 +46,14 @@ export async function signUp({ email, password, phone, fullname } : { email: str
       customerType: "ADULT"
     };
     const res = await monroeAxios.post("/customer/signup", data);
+    console.log(res.data);
     if (res.status === 200) {
       await setSessionData("user", {
         ...data,
         id: res.data.id,
         password
       });
-      await sendVerifyCode();
+      await sendVerifyCode(store);
       return {
         status: "OK"
       }
@@ -72,12 +74,13 @@ export async function updatePassword(data: { token: string, password: string }) 
 
 }
 
-export async function sendVerifyCode() {
+export async function sendVerifyCode(store: string) {
   const session = await getSessionData();
-  if (session.user) {
-    const monroeAxios = await treezRequest("cravemonroe");
+  if (session.user && session.user[store]) {
+    const user = session.user[store];
+    const monroeAxios = await treezRequest(store);
     try {
-      const res = await monroeAxios.get(`/customer/${session.user.id}/code`);
+      const res = await monroeAxios.get(`/customer/${user.id}/code`);
       if (res.status === 200) {
         return {
           status: "OK",
@@ -92,16 +95,17 @@ export async function sendVerifyCode() {
   }
 }
 
-export async function verifyAuthCode(code: string) {
+export async function verifyAuthCode(code: string, store: string) {
   const session = await getSessionData();
-  if (session.user) {
-    const monroeAxios = await treezRequest("cravemonroe");
+  if (session.user && session.user[store]) {
+    const user = session.user[store];
+    const monroeAxios = await treezRequest(store);
     try {
-      const res = await monroeAxios.get(`/customer/${session.user.id}/code/${code}`);
+      const res = await monroeAxios.get(`/customer/${user.id}/code/${code}`);
       if (res.status === 200) {
-        await setPassword(session.user.password);
+        await setPassword(user.password, store);
         await setSessionData("user", {
-          ...session.user,
+          ...user,
           tokens: res.data.tokens
         });
 
@@ -118,8 +122,8 @@ export async function verifyAuthCode(code: string) {
   }
 }
 
-export async function setPassword(password: string) {
-  const monroeAxios = await treezRequest("cravemonroe");
+export async function setPassword(password: string, store: string) {
+  const monroeAxios = await treezRequest(store);
   try {
     const res = monroeAxios.post("/customer/activate", {
       password

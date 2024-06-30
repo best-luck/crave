@@ -1,21 +1,30 @@
-"use server";
-
-import { StoreContextProvider } from "@src/contexts/StoreContext";
 import { ReactNode } from "react";
-import Banner from "@src/components/layout/banner";
-import { getEcommerceConfig } from "@src/lib/treez/config";
-import { setSessionData } from "@src/lib/session/setSession";
+import { StoreContextProvider } from '@src/contexts/StoreContext';
+import { AuthContextProvider } from '@src/contexts/AuthContext';
+import { CartContextProvider } from '@src/contexts/CartContext';
+import { getEcommerceConfig } from '@src/lib/treez/config';
+import { getSessionData } from '@src/lib/session/getSession';
+import { headers } from 'next/headers';
+import PublicLayout from "@src/components/layout/publicLayout";
 
-export default async function Layout({ children, params }: { children: ReactNode, params: { store: string } }) {
+export default async function Layout({ children }: { children: ReactNode }) {
 
-  const res = await getEcommerceConfig(params.store);
-  if (res.config) {
-    setSessionData("store", params.store);
-  }
+  const headerList = headers();
+  const pathname = headerList.get("x-path");
+  const store = pathname?.startsWith("/craveannarbor")?"craveannarbor":"cravemonroe";
+  const session = await getSessionData();
+  const res = await getEcommerceConfig(store);
+
 
   return (
     <StoreContextProvider store={res.config}>
-      {children}
+      <CartContextProvider store={store}>
+        <AuthContextProvider user={session.user?session.user[store]:null}>
+          <PublicLayout>
+            {children}
+          </PublicLayout>
+        </AuthContextProvider>
+      </CartContextProvider>
     </StoreContextProvider>
-  );
+  )
 }

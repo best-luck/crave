@@ -5,7 +5,9 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 
 const initialState: TREEZ_CONFIG_TYPE = {
   brands: [],
-  categories: []
+  categories: [],
+  shortName: "",
+  pickupAddresses: []
 };
 
 const StoreContext = createContext<TREEZ_CONFIG_TYPE>(initialState);

@@ -8,9 +8,9 @@ export default function ClientPage() {
   return (
     <AuthLayout>
       <form>
-        <div className="w-3/4 text-white mb-[32px]">
-          <h1 className="text-[48px] font-bold mb-[24px]">Forgot your password?</h1>
-          <p className="mb-0 text-subtext">Simply enter your E-mail to recover it</p>
+        <div className="w-full md:w-3/4 text-white mb-[32px]">
+          <h1 className="text-[40px] md:text-[48px] text-center md:text-left font-bold mb-[24px]">Forgot your password?</h1>
+          <p className="text-center md:text-left mb-0 text-subtext">Simply enter your E-mail to recover it</p>
         </div>
         <div>
           <Input

@@ -7,7 +7,7 @@ export default function CheckoutSummary() {
   const { cart } = useCartContext();
 
   return (
-    <div className="w-[413px]">
+    <div>
       <div className="rounded-[4px] border border-[#FFFFFF33] p-[24px]">
         <p className="pb-[24px] border-b border-[#FFFFFF33] text-[32px] font-bold">Order Summary</p>
         <div className="text-[16px] flex flex-col gap-y-[16px] mt-[24px] pb-[24px] border-b border-[#FFFFFF33]">
@@ -28,7 +28,7 @@ export default function CheckoutSummary() {
           <span>Total</span>
           <span>${(cart.tax+cart.total).toFixed(2)}</span>
         </div>
-        <Button onClick={() => {}} className="w-full">Order & Pay</Button>
+        <Button type="submit" onClick={() => {}} className="w-full">Order & Pay</Button>
       </div>
       <div className="mt-[64px]">
         <p className="font-bold text-[32px]">Products</p>

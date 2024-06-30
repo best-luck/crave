@@ -9,10 +9,11 @@ import { TREEZ_PRODUCT_TYPE } from "@src/lib/types/treez/product";
 
 interface Props {
   products: TREEZ_PRODUCT_TYPE[];
+  isLoading?: boolean;
 }
 
 export default function List(props: Props) {
-  const { products } = props;
+  const { products, isLoading } = props;
 
   return (
     <div className="flex-1">
@@ -23,6 +24,7 @@ export default function List(props: Props) {
               display="Cart"
               product={product}
               key={`product-list-${product.productList[0].productId}-${index}`}
+              isFetching={isLoading}
             />
           ))
         }

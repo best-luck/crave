@@ -1,5 +1,6 @@
 "use client";
 
+import { useStoreContext } from "@src/contexts/StoreContext";
 import { getRetailerId } from "@src/lib/functions/client/helper";
 import { RETAILER_ID } from "@src/lib/static/vars";
 import Image from "next/image";
@@ -16,17 +17,14 @@ export default function Category({
 }) {
 
   const router = useRouter();
-  const retailerId = RETAILER_ID;
+  const { shortName } = useStoreContext();
   const viewCategory = () => {
-    if (category === "all")
-      router.push(`/shop`)
-    else
-      router.push(`/shop/category/${category}`)
+    router.push(`/${shortName}/category/${category}`)
   }
 
   if (size === "sm") {
     return (
-      <div className="max-w-[100px]"
+      <div className="max-w-[100px] cursor-pointer"
         onClick={viewCategory}>
         <Image
           src={image||"/images/categories/default.png"}
@@ -41,7 +39,7 @@ export default function Category({
   }
 
   return (
-    <div className="w-[332px] h-[332px] flex items-end text-white p-[9px]"
+    <div className="w-[332px] h-[332px] flex items-end text-white p-[9px] cursor-pointer"
       onClick={viewCategory}
       style={{backgroundImage: `url(${image||"/images/categories/default.png"})`}}>
       <div className="bg-secondary w-full inline-flex justify-between items-center h-[50px] px-[16px] py-[14px]">

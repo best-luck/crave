@@ -1,3 +1,5 @@
+"use server";
+
 import { getStoreProducts } from "@src/lib/treez/product";
 import ClientPage from "./clientPage";
 

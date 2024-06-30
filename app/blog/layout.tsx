@@ -1,21 +1,32 @@
-import '@src/styles/globals.css';
-import '@src/styles/fontawesome.css';
-import PublicLayout from '@src/components/layout/publicLayout';
+import { ReactNode } from "react";
+import { StoreContextProvider } from '@src/contexts/StoreContext';
+import { AuthContextProvider } from '@src/contexts/AuthContext';
+import { CartContextProvider } from '@src/contexts/CartContext';
+import { getEcommerceConfig } from '@src/lib/treez/config';
+import { getSessionData } from '@src/lib/session/getSession';
+import { headers } from 'next/headers';
+import PublicLayout from "@src/components/layout/publicLayout";
 
-export const metadata = {
-  title: 'Parc Cannabis',
-  description:'Parc Cannabis'
-};
+export default async function Layout({ children }: { children: ReactNode }) {
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+  const headerList = headers();
+  const pathname = headerList.get("x-path");
+  const store = pathname?.startsWith("/craveannarbor")?"craveannarbor":"cravemonroe";
+  const session = await getSessionData();
+  const res = await getEcommerceConfig(store);
+
 
   return (
-    <PublicLayout>
-      {children}
-    </PublicLayout>
-  );
+    <StoreContextProvider store={res.config}>
+      <CartContextProvider store={store}>
+        <AuthContextProvider user={session.user?session.user[store]:null}>
+          <PublicLayout>
+            <div className="text-white">
+              {children}
+            </div>
+          </PublicLayout>
+        </AuthContextProvider>
+      </CartContextProvider>
+    </StoreContextProvider>
+  )
 }

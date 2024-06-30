@@ -3,17 +3,19 @@ import { ReactNode } from "react";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="px-container items-center flex pt-[48px] pb-[80px] text-white gap-x-[80px] border-b border-secondary">
-      <div className="min-w-[500px]">
+    <div className="container items-center flex pt-[48px] text-white gap-x-[80px] ">
+      <div className="w-full md:w-[500px]">
         {children}
       </div>
-      <Image
-        width={100}
-        height={100}
-        layout="responsive"
-        src="/images/auth/placeholder.png"
-        alt="auth-placeholder"
-        />
+      <div className="flex-auto hidden md:block">
+        <Image
+          width={100}
+          height={100}
+          layout="responsive"
+          src="/images/auth/placeholder.png"
+          alt="auth-placeholder"
+          />
+      </div>
     </div>
   );
 }

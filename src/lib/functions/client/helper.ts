@@ -44,3 +44,12 @@ export const calculateDiscount = (product: ProductType) => {
   }
   return 0;
 }
+
+export const convertToPlain = (html: string) => {
+  if (document) {
+    var tempDivElement = document.createElement('div');
+    tempDivElement.innerHTML = html;
+    return tempDivElement.textContent || tempDivElement.innerText || "";
+  }
+  return "";
+}

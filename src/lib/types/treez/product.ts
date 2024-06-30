@@ -77,3 +77,8 @@ export interface PRODUCT_CART_TYPE {
   product: TREEZ_PRODUCT_TYPE;
   quantity: number;
 }
+
+export interface ORDER_PRODUCT_TYPE {
+  productId: string;
+  quantity: number;
+}

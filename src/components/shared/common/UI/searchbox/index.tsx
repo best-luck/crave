@@ -32,11 +32,13 @@ export default function SearchBox(props: SearchBoxProps) {
           </div>
           <input onFocus={() => setIsSearchModalVisible(true)} type="search" id="default-search" onChange={onChange} className="block w-full pl-[55px] py-2 ps-10 text-sm text-white border border-gray-300 rounded-lg bg-transparent focus:ring-blue-500" placeholder={props.placeholder} required />
       </div>
-      <ProductSearchResultModal
-        query={query}
-        show={isSearchModalVidible}
-        hideModal={() => setIsSearchModalVisible(false)}
-      />
+      {
+        isSearchModalVidible && 
+          <ProductSearchResultModal
+            query={query}
+            hideModal={() => setIsSearchModalVisible(false)}
+          />
+      }
     </div>
   )
 }

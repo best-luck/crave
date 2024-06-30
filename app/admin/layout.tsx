@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 export default async function AdminLayout({ children }: { children: React.ReactElement }) {
 
   return (
-    <>
+    <div className="text-white">
       <AdminHeader />
       {children}
       <ToastContainer
@@ -19,6 +19,6 @@ export default async function AdminLayout({ children }: { children: React.ReactE
           draggable
           pauseOnHover
         />
-    </>
+    </div>
   )
 }
