@@ -16,15 +16,11 @@ export default async function PublicLayout({
   children: React.ReactNode;
 }) {
 
-  const res = await fetch("https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJ7ZRdKTxdM00RtGUxk_0oG7g&fields=reviews&key=AIzaSyBc8DJimRdGuhXsE9wxpcxgxEgQhV7FrMA").then(res => res.json());
-  const reviews = res.result.reviews;
-
   return (
     <>
       <Header />
       {children}
       <Footer
-        reviews={reviews}
       />
       <AgeRestrictModal />
       <ToastContainer

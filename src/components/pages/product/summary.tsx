@@ -31,7 +31,7 @@ export default function ProductSummary({ product }: { product: TREEZ_PRODUCT_TYP
     <div className="bg-[#1B0024] flex-1 p-[32px] flex flex-col">
       <div className="flex gap-[8px]">
         {
-          product.classifications.map(classification => classification?<span className="bg-primary font-medium text-[14px] h-[40px] inline-flex justify-center items-center px-[10px]">{classification}</span>:'')
+          product.classifications.map(classification => classification?<span key={`classification-${classification}`} className="bg-primary font-medium text-[14px] h-[40px] inline-flex justify-center items-center px-[10px]">{classification}</span>:'')
         }
       </div>
       <h1 className="text-[32px] font-semibold mt-[16px]">{product.productList[0].productName}</h1>
@@ -44,7 +44,7 @@ export default function ProductSummary({ product }: { product: TREEZ_PRODUCT_TYP
           <p className="text-[16px] font-semibold mt-[16px]">Effects</p>
           <div className="flex">
             {
-              product.effects.map(effect => !effect?<span className="bg-secondary font-medium text-[14px] h-[40px] inline-flex justify-center items-center px-[10px]">effect</span>:'')
+              product.effects.map(effect => !effect?<span key={`effect-${effect}`} className="bg-secondary font-medium text-[14px] h-[40px] inline-flex justify-center items-center px-[10px]">effect</span>:'')
             }
           </div>
         </div> : ''

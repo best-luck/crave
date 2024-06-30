@@ -16,9 +16,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const res = await fetch("https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJ7ZRdKTxdM00RtGUxk_0oG7g&fields=reviews&key=AIzaSyBc8DJimRdGuhXsE9wxpcxgxEgQhV7FrMA").then(res => res.json());
-  const reviews = res.result.reviews;
-
   return (
     <html lang="en" className="h-full bg-gray-50">
       <body className="h-full">
@@ -26,7 +23,6 @@ export default async function RootLayout({
         <Banner />
         {children}
         <Footer
-          reviews={reviews}
         />
       </body>
     </html>
