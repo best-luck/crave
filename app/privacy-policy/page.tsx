@@ -5,7 +5,7 @@ import "@src/styles/pages/privacy.scss";
 export const metadata = {
   title: 'Privacy Policy',
   description:
-    'Parc Cannabis Privacy Policy'
+    'Crave Cannabis Privacy Policy'
 };
 
 export default async function Page() {

@@ -6,7 +6,7 @@ export default async function LocalSchema() {
 
   const localSchema = await getSetting("localSchema");
 
-  const jsonLd: WithContext<Store> = JSON.parse(localSchema);
+  const jsonLd: WithContext<Store> = localSchema ? JSON.parse(localSchema) : "{}";
 
   return (
     <Script

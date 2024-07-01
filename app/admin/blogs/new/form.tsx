@@ -31,7 +31,7 @@ export default function Form(props: BlogFormProps) {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event?.currentTarget);
-    formData.set("image", image);
+    // formData.set("image", image);
     const res = await createBlogAction(formData);
     router.push("/admin/blogs");
     router.refresh();

@@ -1,13 +1,21 @@
 'use server';
 
+import path from 'path';
+import { writeFile } from "fs/promises";
+
 import { redirect } from "next/navigation";
 import { addBlogCategory, deleteCategory } from "../database/blogCategories";
 import { BlogType, createBlog, deleteBlog, updateBlog } from "../database/blogs";
 import { revalidateCache, uploadFileToCloudinary } from "../functions/server/helper";
 
 export async function createBlogAction(formData: FormData) {
-  const imageData = formData.get("image")?.toString()||'';
-  const { secure_url } = await uploadFileToCloudinary(imageData);
+  const imageData = formData.get("image") as File;
+  const buffer = Buffer.from(await imageData.arrayBuffer());
+  const filename = Date.now()+".png";
+  await writeFile(path.join(process.cwd(), "public/uploads/" + filename), buffer);
+
+  console.log('here');
+  const secure_url="";
   const data: BlogType = {
     title: formData.get("title")?.toString()||'',
     slug: formData.get("slug")?.toString().replace(" ", "-")||'',

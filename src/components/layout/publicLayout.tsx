@@ -6,8 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import AgeRestrictModal from '@src/components/shared/common/UI/modals/AgeRestrict';
 
 export const metadata = {
-  title: 'Parc Cannabis',
-  description:'Parc Cannabis'
+  title: 'Crave Cannabis',
+  description:'Crave Cannabis'
 };
 
 export default async function PublicLayout({

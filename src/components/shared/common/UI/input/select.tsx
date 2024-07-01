@@ -14,6 +14,7 @@ export default function Select({ options, placeholder, name, single, onChange, c
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [isSelected, setIsSelected] = useState<boolean[]>(Array(options.length).fill(false));
+  const [isSelectedAll, setIsSelectedAll] = useState(false);
 
   useEffect(() => {
     const handleOutSideClick = (event: MouseEvent | TouchEvent) => {
@@ -43,6 +44,12 @@ export default function Select({ options, placeholder, name, single, onChange, c
     if (onChange)
       onChange(selectedOptions);
   }
+  const selectAll = () => {
+    setIsSelectedAll(!isSelectedAll);
+    const _isSelected = isSelected.map(v => !isSelectedAll);
+    setIsSelected(_isSelected);
+    triggerOnChange(_isSelected);
+  }
 
   return (
     <div className={`relative ${className}`} ref={ref}>
@@ -52,10 +59,13 @@ export default function Select({ options, placeholder, name, single, onChange, c
       </button>
       <div className={`${isOpen?'':'hidden'} bg-[#1B0024] border border-separatordark absolute left-0 top-[calc(100% + 8px)] w-[320px] rounded-[4px] p-[16px] z-[100000] max-h-[400px] overflow-auto`}>
         {
+          !single ? <div className="cursor-pointer underline decoration-1" onClick={selectAll}>Select All</div> : ""
+        }
+        {
           options.map((option, index) => (
             <div className="mt-[16px] pb-[16px] text-[16px] font-medium flex gap-x-[16px] items-center border-b border-separatordark" key={`filter-${name}-${index}`}>
               {
-                !single ? <Checkbox onClick={() => toggleSelect(index)} name={name}  /> : <Radio name={name} checked={isSelected[index]} onClick={() => toggleSelect(index)} />
+                !single ? <Checkbox onClick={() => toggleSelect(index)} name={name} checked={isSelected[index]} /> : <Radio name={name} checked={isSelected[index]} onClick={() => toggleSelect(index)} />
               }
               <span>{option.label}</span>
             </div>

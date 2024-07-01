@@ -5,7 +5,7 @@ import "@src/styles/pages/privacy.scss";
 export const metadata = {
   title: 'Terms Of Service',
   description:
-    'Parc Cannabis Terms Of Service'
+    'Crave Cannabis Terms Of Service'
 };
 
 export default async function Page() {

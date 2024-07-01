@@ -17,18 +17,26 @@ export default function List(props: Props) {
 
   return (
     <div className="flex-1">
-      <div className="products-grid-container flex flex-wrap gap-[16px] justify-between">
-        {
-          products.map((product, index) => (
-            <Product
-              display="Cart"
-              product={product}
-              key={`product-list-${product.productList[0].productId}-${index}`}
-              isFetching={isLoading}
-            />
-          ))
-        }
-      </div>
+      {
+        products.length ? (
+          <div className="products-grid-container flex flex-wrap gap-[16px] justify-between">
+            {
+              products.map((product, index) => (
+                <Product
+                  display="Cart"
+                  product={product}
+                  key={`product-list-${product.productList[0].productId}-${index}`}
+                  isFetching={isLoading}
+                />
+              ))
+            }
+          </div>
+        ) : (
+          <p>
+            No Products
+          </p>
+        )
+      }
     </div>
   );
 }

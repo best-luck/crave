@@ -44,6 +44,8 @@
     "lodash": "^4.17.21",
     "next": "14.0.0",
     "next-auth": "5.0.0-beta.3",
+    "next-nprogress-bar": "^2.3.12",
+    "nextjs-toploader": "^1.6.12",
     "node-fetch": "^3.3.2",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",

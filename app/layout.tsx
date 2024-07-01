@@ -4,13 +4,13 @@ import '@src/styles/ReactToastify.min.css';
 import LocalSchema from './localSchema';
 import Script from 'next/script';
 import { getSetting } from '@src/lib/database/settings';
-import PublicLayout from '@src/components/layout/publicLayout';
 import { Manrope } from 'next/font/google'
+import PageProgressBar from '@src/components/layout/PageProgressBar';
 
 export const metadata = {
-  title: 'Parc Cannabis',
+  title: 'Crave Cannabis',
   description:
-    'Parc Cannabis Dispensary'
+    'Crave Cannabis Dispensary'
 };
 
 const manrope = Manrope({
@@ -41,6 +41,7 @@ export default async function RootLayout({
       </head>
       <body className={`min-h-full bg-dark ${manrope.className}`}>
         {children}
+        <PageProgressBar />
       </body>
     </html>
   );

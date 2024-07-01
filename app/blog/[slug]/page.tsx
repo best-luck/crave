@@ -26,7 +26,7 @@ export default async function Page(props: Props) {
 
   return (
     <div className="container m-auto pt-[80px]">
-      <h1 className="font-semibold text-[32px] text-center">{blog.title}</h1>
+      <h1 className="font-semibold text-[32px] text-center mb-[48px]">{blog.title}</h1>
       <Image
         src={blog.image}
         layout="responsive"

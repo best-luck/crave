@@ -41,6 +41,7 @@ export default async function getSettings() {
 }
 
 export async function getSetting(q: string) {
+    await createSettingsTable();
     const result = await sql`
         SELECT * FROM settings WHERE key=${q} LIMIT 1;
     `;
