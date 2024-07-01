@@ -2,7 +2,7 @@
 
 import { treezRequest } from "./utils"
 
-export const getStoreProducts = async (store: string, searchParam: string="", filters: any = null) => {
+export const getStoreProducts = async (store: string, searchParam: string="", filters: any = null, afterKey: any = null) => {
   const axios = await treezRequest(store);
   try {
     let body:any = {
@@ -10,7 +10,8 @@ export const getStoreProducts = async (store: string, searchParam: string="", fi
     }
     if (filters)
       body["filters"] = filters;
-    console.log(store, body, filters);
+    if (afterKey)
+      body["afterKey"] = afterKey;
     const res = await axios.post(`/menu/searchProducts${searchParam!==""?`?searchTerm=${searchParam}`:""}`, body);
     return {
       status: "OK",

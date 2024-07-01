@@ -33,8 +33,8 @@ export default async function Footer() {
             </ul>
             <ul>
               <li className="uppercase font-bold font-medium text-white mb-[16px] font-[20px]">Profile</li>
-              <li className="mb-[12px]"><a href="">Log in</a></li>
-              <li className="mb-[12px]"><a href="">Sign up</a></li>
+              <li className="mb-[12px]"><Link href={`/${shortName}/signin`}>Log in</Link></li>
+              <li className="mb-[12px]"><Link href={`/${shortName}/signup`}>Sign up</Link></li>
             </ul>
           </div>
         </div>

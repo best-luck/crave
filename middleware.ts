@@ -13,11 +13,14 @@ export async function middleware(request: NextRequest) {
     if (!pathname.startsWith('/admin/login') && !session.loggedIn) {
       return NextResponse.redirect(new URL('/admin/login', request.url));
     }
-  } else {
+  } else if(pathname.startsWith("/cravemonroe") || pathname.startsWith("/craveannarbor")) {
+    let store = "cravemonroe";
+    if (pathname.startsWith("/craveannarbor"))
+      store = "craveannarbor";
     const authRoutes = ["/signin", "/signup", "/forgot-password", "/new-password"];
-    if (authRoutes.find(route => pathname.startsWith(route))) {
-      if (session.user) {
-        // return NextResponse.redirect(new URL('/', request.url));
+    if (authRoutes.find(route => pathname.includes(route))) {
+      if (session.user && session.user[store]) {
+        return NextResponse.redirect(new URL('/'+store, request.url));
       }
     } else {
       // if (!session.user) {

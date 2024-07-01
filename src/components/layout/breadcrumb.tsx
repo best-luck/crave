@@ -22,10 +22,10 @@ export default function Breadcrumb({ link }: { link: string }) {
       <div className="flex mb-[19px] items-center gap-x-[10px]"> 
         {
           links.map((_link, idx) => (
-            <>
+            <div key={`breadcrumb-${idx}`} className="flex gap-x-[10px]">
               <span className={`${_link === activeLink ? 'text-white': 'text-subtext'} cursor-pointer`} onClick={() => navigate(_link, idx)}>{_link}</span>
               <span className={`${_link === activeLink ? 'hidden': 'text-subtext'}`}><FontAwesomeIcon icon={faChevronRight} fontSize={12} /></span>
-            </>
+            </div>
           ))
         }
       </div>

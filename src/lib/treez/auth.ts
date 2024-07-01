@@ -16,11 +16,16 @@ export async function signIn({ email, password }: { email: string, password: str
     const res = await monroeAxios.post("/login", data);
     const { firstName, lastName, tokens } = res.data;
     if (res.status === 200) {
+      const session = await getSessionData();
+      const _user = session.user||{};
       await setSessionData("user", {
-        email,
-        password,
-        fullname: firstName + " " + lastName,
-        tokens
+        ..._user,
+        [store]: {
+          email,
+          password,
+          fullname: firstName + " " + lastName,
+          tokens
+        }
       });
       return {
         status: "OK"
@@ -46,13 +51,20 @@ export async function signUp({ email, password, phone, fullname } : { email: str
       customerType: "ADULT"
     };
     const res = await monroeAxios.post("/customer/signup", data);
-    console.log(res.data);
     if (res.status === 200) {
-      await setSessionData("user", {
-        ...data,
-        id: res.data.id,
-        password
-      });
+      const session = await getSessionData();
+      let user: any = {};
+      if (session.user) {
+        user = {
+          ...session.user
+        }
+        user[store] = {
+          ...data,
+          id: res.data.id,
+          password
+        }
+        await setSessionData("user", user);
+      }
       await sendVerifyCode(store);
       return {
         status: "OK"
@@ -66,16 +78,38 @@ export async function signUp({ email, password, phone, fullname } : { email: str
   }
 }
 
-export async function forgotPassword(data: { email: string }) {
-
+export async function forgotPassword({ email }: { email: string }, store: string) {
+  const monroeAxios = await treezRequest(store);
+  try {
+    const res = await monroeAxios.post(`/login/forgotpassword`, { email });
+    return {
+      status: "OK"
+    };
+  } catch(err) {
+    return {
+      status: "FAIL"
+    };
+  }
 }
 
-export async function updatePassword(data: { token: string, password: string }) {
-
+export async function updatePassword(data: { retrieveToken: string, password: string }, store: string) {
+  const monroeAxios = await treezRequest(store);
+  try {
+    const res = await monroeAxios.post(`/login/newpassword`, data);
+    return {
+      status: "OK"
+    };
+  } catch(err: any) {
+    return {
+      status: "FAIL",
+      msg: err.response.data.detail
+    }
+  } 
 }
 
 export async function sendVerifyCode(store: string) {
   const session = await getSessionData();
+  console.log(session.user);
   if (session.user && session.user[store]) {
     const user = session.user[store];
     const monroeAxios = await treezRequest(store);
@@ -103,11 +137,15 @@ export async function verifyAuthCode(code: string, store: string) {
     try {
       const res = await monroeAxios.get(`/customer/${user.id}/code/${code}`);
       if (res.status === 200) {
-        await setPassword(user.password, store);
-        await setSessionData("user", {
+        const _user = {
           ...user,
           tokens: res.data.tokens
+        };
+        await setSessionData("user", {
+          ...session.user,
+          [store]: _user
         });
+        await setPassword(user.password, store);
 
         return {
           status: "OK",
@@ -125,6 +163,7 @@ export async function verifyAuthCode(code: string, store: string) {
 export async function setPassword(password: string, store: string) {
   const monroeAxios = await treezRequest(store);
   try {
+    const session = await getSessionData();
     const res = monroeAxios.post("/customer/activate", {
       password
     });

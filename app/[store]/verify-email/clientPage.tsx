@@ -67,6 +67,7 @@ export default function ClientPage() {
     e.preventDefault();
     setIsLoading(true);
     const code = (digitRefs[0].current?.value||"")+(digitRefs[1].current?.value||"")+(digitRefs[2].current?.value||"")+(digitRefs[3].current?.value||"")+(digitRefs[4].current?.value||"")
+    console.log(code);
     if (code.length === 5) {
       const res = await verifyAuthCode(code, shortName);
     }

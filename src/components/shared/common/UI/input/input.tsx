@@ -2,8 +2,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useState } from "react";
 
-export default function Input({ placeholder, name, className, label, type, required, onChange }: 
-  { placeholder: string; name: string; className?: string; label?: string; type?: string; required?: boolean; onChange?: (e: ChangeEvent<HTMLInputElement>) => void; }) {
+export default function Input({ placeholder, name, className, label, type, required, onChange, disabled, defaultValue }: 
+  { placeholder: string; name: string; className?: string; label?: string; type?: string; required?: boolean; onChange?: (e: ChangeEvent<HTMLInputElement>) => void; disabled?: boolean; defaultValue?: string; }) {
 
   const [currentType, setCurrentType] = useState(type||"text");
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +24,8 @@ export default function Input({ placeholder, name, className, label, type, requi
           type={currentType}
           required={required||true}
           onChange={onChangeInput}
+          disabled={disabled}
+          defaultValue={defaultValue}
         />
         {
           type==="password" ? (

@@ -37,6 +37,9 @@ treezCraveannaborAxios.interceptors.response.use(
         try {
           const response = await treezCraveannaborAxios.get(`token/${refreshToken}`);
           const newAccessToken = response.data.accessToken;
+          let user = session.user;
+          user['craveannabor'].tokens.token = newAccessToken;
+          await setSessionData("user", user);
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return treezCraveannaborAxios(originalRequest);
         } catch (error) {
@@ -62,6 +65,9 @@ treezCravemonroeAxios.interceptors.response.use(
         try {
           const response = await treezCravemonroeAxios.get(`/token/${refreshToken}`);
           const newAccessToken = response.data.token;
+          let user = session.user;
+          user['cravemonroe'].tokens.token = newAccessToken;
+          await setSessionData("user", user);
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return treezCravemonroeAxios(originalRequest);
         } catch (_error) {
@@ -81,8 +87,8 @@ export const treezRequest = async (store: string) => {
     axiosInstance = treezCraveannaborAxios;
   }
   const session = await getSessionData();
-  if (session.user && session.user.tokens) {
-    axiosInstance.defaults.headers.common.Authorization = "Bearer " + session.user.tokens.token;
+  if (session.user && session.user[store] && session.user[store].tokens) {
+    axiosInstance.defaults.headers.common.Authorization = "Bearer " + session.user[store].tokens.token;
   }
   return axiosInstance;
 }

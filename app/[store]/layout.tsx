@@ -7,11 +7,10 @@ import { getSessionData } from '@src/lib/session/getSession';
 import { headers } from 'next/headers';
 import PublicLayout from "@src/components/layout/publicLayout";
 
-export default async function Layout({ children }: { children: ReactNode }) {
+export default async function Layout({ children, params: { store } }: { children: ReactNode, params: { store: string } }) {
 
   const headerList = headers();
   const pathname = headerList.get("x-path");
-  const store = pathname?.startsWith("/craveannarbor")?"craveannarbor":"cravemonroe";
   const session = await getSessionData();
   const res = await getEcommerceConfig(store);
 
