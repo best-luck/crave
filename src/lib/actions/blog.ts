@@ -2,6 +2,7 @@
 
 import path from 'path';
 import { writeFile } from "fs/promises";
+import fs from "fs";
 
 import { redirect } from "next/navigation";
 import { addBlogCategory, deleteCategory } from "../database/blogCategories";
@@ -12,9 +13,9 @@ export async function createBlogAction(formData: FormData) {
   const imageData = formData.get("image") as File;
   const buffer = Buffer.from(await imageData.arrayBuffer());
   const filename = Date.now()+".png";
-  await writeFile(path.join(process.cwd(), "public/uploads/" + filename), buffer);
-
-  console.log('here');
+  const _path = path.join(process.cwd(), "public/uploads/" + filename);
+  await fs.promises.mkdir(_path, { recursive: true })
+  await writeFile(_path, buffer);
   const secure_url="";
   const data: BlogType = {
     title: formData.get("title")?.toString()||'',
