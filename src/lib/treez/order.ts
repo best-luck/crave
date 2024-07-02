@@ -9,6 +9,16 @@ export const makeOrder = async (store: string, data: any, items: ORDER_PRODUCT_T
   const axios = await treezRequest(store);
   const session = await getSessionData();
   try {
+    if (data) {
+      const registerAddress = await axios.post("/customer/address", data);
+    }
+  } catch (err: any) {
+    return {
+      status: "Address",
+      message: err.response.data.detail
+    }
+  }
+  try {
     let body:any = {
       items,
       type: data.method,
@@ -19,11 +29,8 @@ export const makeOrder = async (store: string, data: any, items: ORDER_PRODUCT_T
     // } else {
     //   body["scheduled_date"] = data.date;
     // }
-    const registerAddress = await axios.post("/customer/address", data);
-    console.log(registerAddress.data);
     const res = await axios.post("/order", body);
-    console.log(res.data);
-    return {
+      return {
       status: "OK",
       data: res.data
     }
@@ -33,4 +40,16 @@ export const makeOrder = async (store: string, data: any, items: ORDER_PRODUCT_T
       status: "FAIL"
     }
   }
+}
+
+export const getOrders = async (store: string, page: number = 0) => {
+  const axios = await treezRequest(store);
+  const res = await axios.get("/customer/orders/page/"+page);
+  return res.data.data;
+}
+
+export const getOrder = async (store: string, id: string) => {
+  const axios = await treezRequest(store);
+  const res = await axios.get("/customer/orders/"+id);
+  return res.data;
 }

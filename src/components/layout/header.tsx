@@ -11,19 +11,24 @@ import { useCartContext } from "@src/contexts/CartContext";
 import { useRouter } from "next/navigation";
 import { useStoreContext } from "@src/contexts/StoreContext";
 import Icon from "../shared/common/UI/icon/icon";
+import { useAuthContext } from "@src/contexts/AuthContext";
 
 export default function Header() {
 
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const { cart, store } = useCartContext();
   const { categories, brands, shortName } = useStoreContext();
+  const { user } = useAuthContext();
   const router = useRouter();
 
   const viewCart = () => {
     router.push(`/${store}/cart`);
   }
   const viewUser = () => {
-    router.push(`/${store}/signin`);
+    if (!user)
+      router.push(`/${store}/signin`);
+    else
+      router.push(`/${store}/orders`);
   }
 
   return <>

@@ -25,6 +25,7 @@ treezCraveannaborAxios.interceptors.response.use(
     return response;
   },
   async (error) => {
+    "use server";
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -55,6 +56,7 @@ treezCravemonroeAxios.interceptors.response.use(
     return response;
   },
   async (error) => {
+    "use server";
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry && !originalRequest.url.startsWith("/token/")) {
       originalRequest._retry = true;
@@ -67,7 +69,7 @@ treezCravemonroeAxios.interceptors.response.use(
           const newAccessToken = response.data.token;
           let user = session.user;
           user['cravemonroe'].tokens.token = newAccessToken;
-          await setSessionData("user", user);
+          // await setSessionData("user", user);
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return treezCravemonroeAxios(originalRequest);
         } catch (_error) {

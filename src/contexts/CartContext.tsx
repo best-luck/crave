@@ -12,6 +12,7 @@ interface CART {
   addItemToCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => void;
   removeItemFromCart: (product: TREEZ_PRODUCT_TYPE) => void;
   updateItemInCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CART>({
@@ -24,6 +25,7 @@ const CartContext = createContext<CART>({
   addItemToCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => {},
   removeItemFromCart: (product: TREEZ_PRODUCT_TYPE) => {},
   updateItemInCart: (product: TREEZ_PRODUCT_TYPE, quantity: number) => {},
+  clearCart: () => {},
 });
 
 export function CartContextProvider({ children, store } : { children: ReactNode, store: string }) {
@@ -73,6 +75,13 @@ export function CartContextProvider({ children, store } : { children: ReactNode,
       tax
     });
   }
+  const clearCart = () => {
+    setCart({
+      total: 0,
+      tax: 0,
+      products: [],
+    })
+  }
 
   return (
     <CartContext.Provider
@@ -81,7 +90,8 @@ export function CartContextProvider({ children, store } : { children: ReactNode,
         store,
         addItemToCart,
         removeItemFromCart,
-        updateItemInCart
+        updateItemInCart,
+        clearCart
       }}
     >
       {children}

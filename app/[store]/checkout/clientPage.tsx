@@ -8,17 +8,28 @@ import { FormEvent, useState } from "react";
 import { makeOrder } from "@src/lib/treez/order";
 import { useStoreContext } from "@src/contexts/StoreContext";
 import { useCartContext } from "@src/contexts/CartContext";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function ClientPage() {
 
   const { shortName } = useStoreContext();
-  const { cart } = useCartContext();
+  const { cart, clearCart } = useCartContext();
   const [data, setData] = useState();
+  const router = useRouter();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const items = cart.products.map(product => ({productId: product.product.productList[0].productId, quantity: product.quantity}));
     const res = await makeOrder(shortName, data, items);
+    if (res.status === "Address") {
+      toast.error(res.message);
+    } else if (res.status === "OK") {
+      clearCart();
+      router.push(`/${shortName}/orders/success`);
+    } else {
+      router.push(`/${shortName}/orders/error`);
+    }
   }
 
   return (

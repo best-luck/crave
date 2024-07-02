@@ -28,8 +28,13 @@ export default function Categories({ images, size }: { images: any, size?: strin
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,
         }}
-        breakpoints={{
+        breakpoints={size==="sm" ? {
           1000: { slidesPerView: perView },
+        }: {
+          700: { slidesPerView: 2 },
+          1000: { slidesPerView: perView },
+          1200: { slidesPerView: 4 },
+          1800: { slidesPerView: 5 },
         }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('slide change')}

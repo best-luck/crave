@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
       store = "craveannarbor";
     const authRoutes = ["/signin", "/signup", "/forgot-password", "/new-password"];
     if (authRoutes.find(route => pathname.includes(route))) {
-      if (session.user && session.user[store]) {
+      if (session.user && session.user[store] !== null) {
         return NextResponse.redirect(new URL('/'+store, request.url));
       }
     } else {

@@ -176,3 +176,13 @@ export async function setPassword(password: string, store: string) {
     }
   }
 }
+
+export async function treezLogout(store: string) {
+  const session = await getSessionData();
+  const user = session.user;
+  user[store] = null;
+  await setSessionData("user", user);
+  return {
+    status: "OK"
+  }
+}
