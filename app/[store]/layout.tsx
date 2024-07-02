@@ -14,7 +14,6 @@ export default async function Layout({ children, params: { store } }: { children
   const session = await getSessionData();
   const res = await getEcommerceConfig(store);
 
-
   return (
     <StoreContextProvider store={res.config}>
       <CartContextProvider store={store}>
