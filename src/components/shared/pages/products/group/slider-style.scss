@@ -12,6 +12,9 @@
 
     .swiper-slide {
       height: initial !important;
+      &>div {
+        height: 100% !important;
+      }
     }
   }
 }

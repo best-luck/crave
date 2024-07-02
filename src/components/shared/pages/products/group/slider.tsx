@@ -30,11 +30,9 @@ export default function ProductsSlier({ products, breakpoints }: { products: TRE
         }}
         breakpoints={breakpoints||{
           300: { slidesPerView: 1 },
-          500: { slidesPerView: 2 },
-          700: { slidesPerView: 2 },
-          900: { slidesPerView: 3 },
-          1200: { slidesPerView: 4 },
-          1400: { slidesPerView: 5 },
+          900: { slidesPerView: 2 },
+          1200: { slidesPerView: 3 },
+          1400: { slidesPerView: 4 },
         }}
         onSwiper={(swiper) => {}}
         onSlideChange={() => {}}

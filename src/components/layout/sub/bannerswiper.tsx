@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Button from '@src/components/shared/common/UI/button';
 import Link from 'next/link';
+import { useStoreContext } from '@src/contexts/StoreContext';
+import { useRouter } from 'next/navigation';
 
 interface SwiperProps {
   banners: BannerType[]
@@ -22,8 +24,10 @@ interface SwiperProps {
 
 export default function BannerSwiper({ banners }: SwiperProps) {
 
-  const navigationPrevRef = useRef(null)
-  const navigationNextRef = useRef(null)
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+  const { shortName } = useStoreContext();
+  const router = useRouter();
 
   return (
     <>
@@ -69,7 +73,7 @@ export default function BannerSwiper({ banners }: SwiperProps) {
                   alt="logo"
                 />
                 <p className="mt-[31px] mb-[32px] text-center text-white">{banner.heading}</p>
-                <Link className="rounded-[4px] w-[180px] h-[50px] text-black bg-white flex justify-center items-center font-semibold" href={banner.link}>{banner.cta}</Link>
+                <Link className="rounded-[4px] w-[180px] h-[50px] text-black bg-white flex justify-center items-center font-semibold" href={`/${shortName}/catalogue`}>{banner.cta}</Link>
               </div>
             </div>
           </SwiperSlide>

@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { TREEZ_PRODUCT_TYPE } from "@src/lib/types/treez/product";
 import Button from "@src/components/shared/common/UI/button";
 import { useCartContext } from "@src/contexts/CartContext";
-import Icon from "@src/components/shared/common/UI/icon/icon";
 import ProductPulse from "./pulse";
 
 interface ProductProps {

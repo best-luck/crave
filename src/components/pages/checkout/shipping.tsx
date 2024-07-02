@@ -86,13 +86,7 @@ export default function Shipping({ onChangeData }: { onChangeData: (data: any) =
           <>
             <Input
               name="street"
-              placeholder="Address1"
-              onChange={onChange}
-              required={true}
-            />
-            <Input
-              name="street2"
-              placeholder="Address2"
+              placeholder="Address"
               onChange={onChange}
               required={true}
             />
@@ -103,8 +97,8 @@ export default function Shipping({ onChangeData }: { onChangeData: (data: any) =
               required={true}
             />
             <Input
-              name="county"
-              placeholder="County"
+              name="state"
+              placeholder="State"
               onChange={onChange}
               required={true}
             />

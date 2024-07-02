@@ -23,7 +23,7 @@ export default function Categories({ images, size }: { images: any, size?: strin
         // install Swiper modules
         modules={[Navigation, Pagination, A11y, Autoplay]}
         spaceBetween={16}
-        slidesPerView={perView}
+        slidesPerView={1}
         navigation={{
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,

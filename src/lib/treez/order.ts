@@ -14,11 +14,13 @@ export const makeOrder = async (store: string, data: any, items: ORDER_PRODUCT_T
       type: data.method,
       rewardDollars: 0
     }
-    if (data.method === "DELIVERY") {
-      body["delivery_address"] = data;
-    } else {
-      body["scheduled_date"] = data.date;
-    }
+    // if (data.method === "DELIVERY") {
+    //   body["delivery_address"] = data;
+    // } else {
+    //   body["scheduled_date"] = data.date;
+    // }
+    const registerAddress = await axios.post("/customer/address", data);
+    console.log(registerAddress.data);
     const res = await axios.post("/order", body);
     console.log(res.data);
     return {
