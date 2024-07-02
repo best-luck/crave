@@ -70,11 +70,12 @@ export async function signUp({ email, password, phone, fullname } : { email: str
         status: "OK"
       }
     }
-  } catch(err) {
+  } catch(err: any) {
     console.log(err);
-  }
-  return {
-    status: "FAIL",
+    return {
+      status: "FAIL",
+      message: err.response.data.detail||err.response.data.description
+    }
   }
 }
 

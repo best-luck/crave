@@ -9,6 +9,7 @@ import { signUp } from "@src/lib/treez/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ClientPage() {
 
@@ -34,8 +35,10 @@ export default function ClientPage() {
     setIsLoading(true);
     const result = await signUp(data, shortName);
     setIsLoading(false);
-    if (result.status === "OK") {
+    if (result?.status === "OK") {
       router.push("verify-email");
+    } else {
+      toast(result?.message)
     }
   }
 
