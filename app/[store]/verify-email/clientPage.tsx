@@ -5,6 +5,7 @@ import Button from "@src/components/shared/common/UI/button";
 import { useAuthContext } from "@src/contexts/AuthContext";
 import { useStoreContext } from "@src/contexts/StoreContext";
 import { sendVerifyCode, verifyAuthCode } from "@src/lib/treez/auth";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, KeyboardEvent, forwardRef, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -34,6 +35,7 @@ export default function ClientPage() {
   const digit4 = useRef<HTMLInputElement>(null);
   const digit5 = useRef<HTMLInputElement>(null);
   const digitRefs = [digit1, digit2, digit3, digit4, digit5];
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { shortName } = useStoreContext();
   const { user } = useAuthContext();
@@ -70,6 +72,9 @@ export default function ClientPage() {
     console.log(code);
     if (code.length === 5) {
       const res = await verifyAuthCode(code, shortName);
+      if (res.status === "OK") {
+        router.push("/"+shortName);
+      }
     }
     setIsLoading(false);
   }
