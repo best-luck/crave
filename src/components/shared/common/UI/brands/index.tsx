@@ -13,8 +13,14 @@ import Brand from "./brand";
 export default function Brands({ images, size }: { images: any, size?: string }) {
 
   const { brands } = useStoreContext();
-  const navigationPrevRef = useRef(null)
-  const navigationNextRef = useRef(null)
+  const _swiper = useRef<any>(null);
+
+  const nextSwiper = () => {
+    _swiper.current?.slideNext();
+  }
+  const prevSwiper = () => {
+    _swiper.current?.slidePrev();
+  }
 
   return (
     <div>
@@ -22,20 +28,15 @@ export default function Brands({ images, size }: { images: any, size?: string })
         // install Swiper modules
         modules={[Navigation, Pagination, A11y, Autoplay]}
         spaceBetween={16}
-        slidesPerView={10}
-        navigation={{
-          prevEl: navigationPrevRef.current,
-          nextEl: navigationNextRef.current,
-        }}
+        slidesPerView={2}
         breakpoints={{
-          1000: { slidesPerView: 10 },
+          200: { slidesPerView: 2 },
+          500: { slidesPerView: 3 },
+          600: { slidesPerView: 6 },
+          900: { slidesPerView: 8 },
+          1200: { slidesPerView: 10 },
         }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
-        onBeforeInit={(swiper: any) => {
-          swiper.params.navigation.prevEl = navigationPrevRef.current;
-          swiper.params.navigation.nextEl = navigationNextRef.current;
-        }}
+        onSwiper={(swiper) => _swiper.current = swiper}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false
@@ -56,12 +57,12 @@ export default function Brands({ images, size }: { images: any, size?: string })
         }
       </Swiper>
       <div className="flex justify-center gap-[80px] w-full mt-[40px]">
-        <div ref={navigationPrevRef} className="h-full flex items-center z-10 prev-nav">
+        <div onClick={prevSwiper} className="h-full flex items-center z-10 prev-nav">
           <div className="rounded-full flex justify-center items-center cursor-pointer w-[48px] h-[48px] text-white bg-[#FFFFFF0D] border border-[#FFFFFF33]">
             <FontAwesomeIcon icon={faChevronLeft} fontSize={24} />
           </div>
         </div>
-        <div ref={navigationNextRef} className="h-full flex items-center z-10 next-nav">
+        <div onClick={nextSwiper} className="h-full flex items-center z-10 next-nav">
           <div className="rounded-full flex justify-center items-center cursor-pointer w-[48px] h-[48px] text-white bg-[#FFFFFF0D] border border-[#FFFFFF33]">
             <FontAwesomeIcon icon={faChevronRight} fontSize={24} />
           </div>
