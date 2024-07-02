@@ -23,7 +23,7 @@ export default function List(props: Props) {
     <div className="flex-1">
       {
         products.length ? (
-          <div className="products-grid-container flex flex-wrap gap-[16px] justify-between">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[16px] justify-between">
             {
               products.map((product, index) => (
                 <Product
