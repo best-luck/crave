@@ -17,6 +17,7 @@ export default function Categories({ images, size }: { images: any, size?: strin
   const _swiper = useRef<any>(null);
 
   const nextSwiper = () => {
+    _swiper.current.allowSlideNext = true;
     _swiper.current?.slideNext();
   }
   const prevSwiper = () => {
@@ -40,7 +41,7 @@ export default function Categories({ images, size }: { images: any, size?: strin
           700: { slidesPerView: 2 },
           1000: { slidesPerView: perView },
           1200: { slidesPerView: 4 },
-          1800: { slidesPerView: 5 },
+          1800: { slidesPerView: 4 },
         }}
         onSwiper={(swiper) => _swiper.current = swiper}
         autoplay={{

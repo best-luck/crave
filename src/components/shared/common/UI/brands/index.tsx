@@ -19,6 +19,7 @@ export default function Brands({ images, size }: { images: any, size?: string })
     _swiper.current?.slideNext();
   }
   const prevSwiper = () => {
+    console.log(_swiper.current);
     _swiper.current?.slidePrev();
   }
 
