@@ -25,7 +25,7 @@ const dateOptions = [
 export default function Shipping({ onChangeData }: { onChangeData: (data: any) => void; }) {
 
   const { pickupAddresses } = useStoreContext();
-  const [shippingMethod, setShippingMethod] = useState("DELIVERY");
+  const [shippingMethod, setShippingMethod] = useState("PICKUP");
   const { user } = useAuthContext();
   const storeOptions = pickupAddresses.map(addr => ({ value: addr.id.toString(), label: `${addr.city}, ${addr.state} - ${addr.name}` }));
   const [data, setData] = useState({
@@ -65,7 +65,7 @@ export default function Shipping({ onChangeData }: { onChangeData: (data: any) =
     <div className="mt-[45px]">
       <p className="border-[#FFFFFF33] text-[32px] font-bold">Shipping address</p>
       <div className="mt-[32px] bg-separatordark rounded-[4px] p-[8px] flex text-center gap-[4px] text-[16px]">
-        <div className={`cursor-pointer flex-auto py-[11px] ${shippingMethod==="DELIVERY"?"bg-primary rounded-[4px]":""}`} onClick={() => setShippingMethod("DELIVERY")}>Delivery</div>
+        <div className={`flex-auto py-[11px] cursor-not-allowed ${shippingMethod==="DELIVERY"?"bg-primary rounded-[4px]":""}`}>Delivery</div>
         <div className={`cursor-pointer flex-auto py-[11px] ${shippingMethod==="PICKUP"?"bg-primary rounded-[4px]":""}`} onClick={() => setShippingMethod("PICKUP")}>Pickup</div>
       </div>
       <div className="mt-[32px] grid grid-cols-1 md:grid-cols-2 gap-x-[24px] gap-y-[16px]">
@@ -73,13 +73,13 @@ export default function Shipping({ onChangeData }: { onChangeData: (data: any) =
           name="firstname"
           placeholder="First name"
           disabled={true}
-          defaultValue={user?.fullname.split(" ")[0]}
+          defaultValue={user?.firstName}
         />
         <Input
           name="lastname"
           placeholder="Last name"
           disabled={true}
-          defaultValue={user?.fullname.split(" ")[1]}
+          defaultValue={user?.lastName}
         />
         {
           shippingMethod==="DELIVERY" ? (

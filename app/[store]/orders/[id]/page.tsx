@@ -3,7 +3,12 @@ import ClientPage from "./clientPage";
 
 export default async function Page({ params: { id, store } }: { params:{ id: string, store: string  } }) {
 
-  const order = await getOrder(store, id);
+  let order = null;
+  try {
+    order = await getOrder(store, id);
+  } catch(err) {
+    
+  }
 
   return (
     <ClientPage order={order} />

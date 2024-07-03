@@ -10,9 +10,15 @@ export const makeOrder = async (store: string, data: any, items: ORDER_PRODUCT_T
   const session = await getSessionData();
   try {
     if (data) {
-      const registerAddress = await axios.post("/customer/address", data);
+      console.log('here');
+      const primaryAddressReq = await axios.put("/customer/primaryaddress", {
+        type: "PICKUP",
+        addressId: 1
+      });
+      console.log(primaryAddressReq.data);
     }
   } catch (err: any) {
+    console.log(err.response.data);
     return {
       status: "Address",
       message: err.response.data.detail
@@ -21,9 +27,10 @@ export const makeOrder = async (store: string, data: any, items: ORDER_PRODUCT_T
   try {
     let body:any = {
       items,
-      type: data.method,
+      type: "PICKUP",
       rewardDollars: 0
     }
+    console.log(body);
     // if (data.method === "DELIVERY") {
     //   body["delivery_address"] = data;
     // } else {
@@ -35,7 +42,7 @@ export const makeOrder = async (store: string, data: any, items: ORDER_PRODUCT_T
       data: res.data
     }
   } catch(err) {
-    console.log(err);
+    // console.log(err);
     return {
       status: "FAIL"
     }

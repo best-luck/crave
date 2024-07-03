@@ -23,7 +23,8 @@ export async function signIn({ email, password }: { email: string, password: str
         [store]: {
           email,
           password,
-          fullname: firstName + " " + lastName,
+          firstName,
+          lastName,
           tokens
         }
       });

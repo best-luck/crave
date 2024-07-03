@@ -2,7 +2,7 @@ import Button from "@src/components/shared/common/UI/button";
 import CheckoutProduct from "@src/components/shared/pages/products/product/checkout";
 import { useCartContext } from "@src/contexts/CartContext";
 
-export default function CheckoutSummary() {
+export default function CheckoutSummary({ loading }: { loading: boolean }) {
 
   const { cart } = useCartContext();
 
@@ -28,7 +28,7 @@ export default function CheckoutSummary() {
           <span>Total</span>
           <span>${(cart.tax+cart.total).toFixed(2)}</span>
         </div>
-        <Button type="submit" onClick={() => {}} className="w-full">Order & Pay</Button>
+        <Button type="submit" onClick={() => {}} disabled={loading} className="w-full">Order & Pay</Button>
       </div>
       <div className="mt-[64px]">
         <p className="font-bold text-[32px]">Products</p>

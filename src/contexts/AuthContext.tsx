@@ -1,7 +1,5 @@
 "use client";
 
-import { getEcommerceConfig } from "@src/lib/treez/config";
-import { TREEZ_CONFIG_TYPE } from "@src/lib/types/treez/config";
 import { USER_TYPE } from "@src/lib/types/treez/customer";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 

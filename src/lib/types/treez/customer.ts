@@ -1,4 +1,5 @@
 export interface USER_TYPE {
-  fullname: "",
+  firstName: "",
+  lastName: "",
   email: "",
 }

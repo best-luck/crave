@@ -5,6 +5,7 @@ import { getIronSession } from 'iron-session';
 import { SessionData, sessionOptions } from './config';
 
 export async function setSessionData(key: string, value: any) {
+  "use server";
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
   session[key] = value;
   await session.save();

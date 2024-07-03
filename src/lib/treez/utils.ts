@@ -67,13 +67,14 @@ treezCravemonroeAxios.interceptors.response.use(
         try {
           const response = await treezCravemonroeAxios.get(`/token/${refreshToken}`);
           const newAccessToken = response.data.token;
+          console.log(newAccessToken, '--------');
           let user = session.user;
           user['cravemonroe'].tokens.token = newAccessToken;
           // await setSessionData("user", user);
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return treezCravemonroeAxios(originalRequest);
-        } catch (_error) {
-          await setSessionData("user", null);
+        } catch (_error: any) {
+          // await setSessionData("user", null);
         }
       }
     }

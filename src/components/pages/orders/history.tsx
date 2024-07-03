@@ -7,7 +7,7 @@ export default function History({ orders }: { orders: ORDER_TYPE[] }) {
       <h1 className="font-[32px] font-bold">Order History</h1>
       <div className="mt-[30px]">
         {
-          orders.map(order => <Order key={`order-${order.orderId}`} order={order} />)
+          orders && orders.map(order => <Order key={`order-${order.orderId}`} order={order} />)
         }
       </div>
     </div>

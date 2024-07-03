@@ -13,8 +13,12 @@ export default function ClientPage({ orders }: { orders: ORDER_TYPE[] }) {
 
   const { shortName } = useStoreContext();
   const router = useRouter();
+  
+  if (orders === null) {
+    logOut();
+  }
 
-  const logOut = async () => {
+  async function logOut() {
     const res = await treezLogout(shortName);
     router.push(`/${shortName}/signin`);
   }
