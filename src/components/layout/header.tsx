@@ -33,12 +33,12 @@ export default function Header() {
 
   return <>
     <header className="bg-dark sticky top-0 w-full z-30 text-white border-b border-primary">
-      <div className="bg-primary flex justify-center sm:justify-between container text-[14px] pt-[10px] pb-[7px]">
+      <div className="bg-primary flex justify-center sm:justify-between px-[16px] md:px-[32px] text-[14px] pt-[10px] pb-[7px]">
         <div className="hidden sm:block">Daily 7:00-15:00 Friday - day off</div>
         <div className="hidden sm:block">+1-801-975-9500</div>
         <div>25% OFF Verano, Encore, & more brands: Shop Now</div>
       </div>
-      <div className="header-main flex gap-x-[77px] container text-[16px] relative h-[90px] items-stretch bg-dark">
+      <div className="header-main flex gap-x-[77px] text-[16px] px-container relative h-[90px] items-stretch bg-dark px-[16px] md:px-[32px]    ">
         <div className="flex items-center">
           <span className="lg:hidden mr-3 lg:mr-0 cursor-pointer" onClick={() => setIsSidebarVisible(!isSidebarVisible)}>
             { isSidebarVisible ? <Icon icon={faClose} /> : <Icon icon={faBars} /> }

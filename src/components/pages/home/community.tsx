@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Community() {
   return (
     <div className="flex mt-[80px] gap-[32px] flex-col md:flex-row">
-      <div className="bg-secondary rounded-[4px] w-full md:min-w-[575px] flex items-center flex-col justify-center p-[16px] md:py-[56px] md:px-[79.5px]">
+      <div className="bg-secondary rounded-[4px] w-full md:min-w-[575px] md:w-[575px] flex items-center flex-col justify-center p-[16px] md:py-[56px] md:px-[79.5px]">
         <p className="text-[32px] font-semibold ">Join Our Community</p>
         <p>Become a valued member of our community and unlock special deals, latest updates and exclusive rewards.</p>
         <form className="mt-[32px] w-full">

@@ -75,7 +75,7 @@ export default {
           sm: '32px',
           lg: '32px',
           xl: '32px',
-          '2xl': '32px',
+          '2xl': '0px',
         },
       },
     },

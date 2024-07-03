@@ -32,7 +32,7 @@ export default function ProductCart({ product, selectProduct, isFetching }: Prod
     return <ProductPulse />
 
   return (
-    <div className="bg-[#FFFFFF0D] border border-[#FFFFFF1A] p-[9px] text-white h-full w-[332px] flex flex-col">
+    <div className="bg-[#FFFFFF0D] border border-[#FFFFFF1A] p-[9px] text-white h-full w-full sm:w-[332px] flex flex-col">
       {
         !isFetching ? (
           <>
