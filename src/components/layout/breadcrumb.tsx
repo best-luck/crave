@@ -18,18 +18,20 @@ export default function Breadcrumb({ link }: { link: string }) {
   }
 
   return (
-    <div className="bg-primary container py-[43px]">
-      <div className="flex mb-[19px] items-center gap-x-[10px]"> 
-        {
-          links.map((_link, idx) => (
-            <div key={`breadcrumb-${idx}`} className="flex gap-x-[10px]">
-              <span className={`${_link === activeLink ? 'text-white': 'text-subtext'} cursor-pointer`} onClick={() => navigate(_link, idx)}>{_link}</span>
-              <span className={`${_link === activeLink ? 'hidden': 'text-subtext'}`}><FontAwesomeIcon icon={faChevronRight} fontSize={12} /></span>
-            </div>
-          ))
-        }
+    <div className="bg-primary py-[43px] mt-[40px]">
+      <div className="container">
+        <div className="flex mb-[19px] items-center gap-x-[10px]"> 
+          {
+            links.map((_link, idx) => (
+              <div key={`breadcrumb-${idx}`} className="flex gap-x-[10px]">
+                <span className={`${_link === activeLink ? 'text-white': 'text-subtext'} cursor-pointer`} onClick={() => navigate(_link, idx)}>{_link}</span>
+                <span className={`${_link === activeLink ? 'hidden': 'text-subtext'}`}><FontAwesomeIcon icon={faChevronRight} fontSize={12} /></span>
+              </div>
+            ))
+          }
+        </div>
+        <h1 className="text-[32px] font-semibold">{activeLink}</h1>
       </div>
-      <h1 className="text-[32px] font-semibold">{activeLink}</h1>
     </div>
   );
 }

@@ -24,17 +24,19 @@ export default function Brand({
 
   if (size === "sm") {
     return (
-      <div className="max-w-[100px] cursor-pointer"
+      <>
+      <div className="border-x border-t rounded-t border-[#FFFFFF33] flex px-[4px] h-[108px] py-[4px] justify-center aligns-center cursor-pointer bg-[#260E2F]"
         onClick={viewCategory}>
         <Image
           src={image||"/images/categories/default.png"}
           width={100}
           height={100}
           alt="category"
-          className="w-[100px] h-[100px]"
+          className="object-contain"
         />
-        <p className="font-semibold font-[14px] font-semibold text-center mt-[12px] line-clamp-2">{brand}</p>
       </div>  
+      <p className="border-x border-b rounded-b border-[#FFFFFF33] font-semibold capitalize font-[14px] py-[8px] text-center bg-[#36014B]">{brand}</p>
+      </>
     )
   }
 

@@ -32,20 +32,19 @@ export default function ProductCart({ product, selectProduct, isFetching }: Prod
     return <ProductPulse />
 
   return (
-    <div className="bg-[#FFFFFF0D] border border-[#FFFFFF1A] p-[9px] text-white h-full w-full sm:w-[332px] flex flex-col">
+    <div className="bg-[#FFFFFF0D] border rounded border-[#FFFFFF33] p-[9px] text-white h-full w-full flex flex-col">
       {
         !isFetching ? (
           <>
             <div className="flex justify-center">
-              <Link href={`/${store}/product/${product.productList[0].seoProductName}`}>
+              <Link href={`/${store}/product/${product.productList[0].seoProductName}`} style={{width: '100%', height: '220px'}} className="flex">
                 <Image
                   src={product.largeImage||"/images/products/default.png"}
                   alt=""
-                  width={200}
-                  height={250}
+                  width={350}
+                  height={220}
                   layout="responsive"
-                  style={{maxHeight: 150, height: 150, width: 200}}
-                  className="rounded-[4px]"
+                  className="rounded-[4px] w-[350px] h-[220px] object-cover"
                 />
               </Link>
             </div>
